@@ -1,5 +1,5 @@
 import { createApiRef, DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
-import { LogicalEnvironment } from './types';
+import { UnifiedInstance, LogicalEnvironment } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 
 export const multicloudEnvironmentsApiRef = createApiRef<MulticloudEnvironmentsApi>({
   id: 'plugin.multicloud-environments.service',

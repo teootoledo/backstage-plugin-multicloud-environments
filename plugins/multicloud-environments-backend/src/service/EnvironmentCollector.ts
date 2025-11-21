@@ -1,6 +1,7 @@
 import { CloudProvider } from '../providers/types';
 import { InstanceProcessor } from '../processors/types';
-import { UnifiedInstance, LogicalEnvironment } from '../lib/types';
+import { LogicalEnvironment } from '@teootoledo/backstage-plugin-multicloud-environments-common';
+import { UnifiedInstance } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 import { Knex } from 'knex';
 import { Logger } from 'winston';
 import { Config } from '@backstage/config';

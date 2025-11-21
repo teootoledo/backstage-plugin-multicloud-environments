@@ -2,7 +2,7 @@
 import { Table, TableColumn } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { multicloudEnvironmentsApiRef } from '../api';
-import { LogicalEnvironment } from '../types';
+import { LogicalEnvironment } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 import useAsync from 'react-use/lib/useAsync';
 import Alert from '@material-ui/lab/Alert';
 

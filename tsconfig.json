@@ -1,8 +1,5 @@
 {
-  "extends": "@backstage/cli/config/tsconfig.json",
   "include": [
-    "packages/*/src",
-    "packages/*/config.d.ts",
     "plugins/*/src",
     "plugins/*/config.d.ts",
     "plugins/*/dev",
@@ -12,6 +9,13 @@
   "compilerOptions": {
     "outDir": "dist-types",
     "rootDir": ".",
-    "jsx": "react-jsx"
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@teootoledo/backstage-plugin-multicloud-environments-common": ["dist-types/plugins/multicloud-environments-common/index.d.ts"]
+    }
   }
 }

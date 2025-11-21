@@ -1,6 +1,6 @@
 
 import { Card, CardContent, Typography, Grid, Chip } from '@material-ui/core';
-import { LogicalEnvironment } from '../types';
+import { LogicalEnvironment } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 
 export const EnvCard = ({ env }: { env: LogicalEnvironment }) => {
   return (

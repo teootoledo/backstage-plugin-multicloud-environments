@@ -1,5 +1,5 @@
 import { CloudProvider } from './types';
-import { UnifiedInstance } from '../lib/types';
+import { UnifiedInstance } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 import { EC2Client, DescribeInstancesCommand } from '@aws-sdk/client-ec2';
 import { Config } from '@backstage/config';
 

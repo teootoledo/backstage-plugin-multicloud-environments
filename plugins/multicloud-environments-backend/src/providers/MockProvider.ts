@@ -1,5 +1,5 @@
 import { CloudProvider } from './types';
-import { UnifiedInstance } from '../lib/types';
+import { UnifiedInstance } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 
 export class MockProvider implements CloudProvider {
   private readonly id: string;

@@ -1,5 +1,5 @@
 import { CloudProvider } from './types';
-import { UnifiedInstance } from '../lib/types';
+import { UnifiedInstance } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 import { Config } from '@backstage/config';
 import * as core from 'oci-core';
 import * as common from 'oci-common';

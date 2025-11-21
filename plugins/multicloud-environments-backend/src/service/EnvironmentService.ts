@@ -1,5 +1,5 @@
 import { Knex } from 'knex';
-import { LogicalEnvironment, UnifiedInstance } from '../lib/types';
+import { UnifiedInstance, LogicalEnvironment } from '@teootoledo/backstage-plugin-multicloud-environments-common';
 
 export class EnvironmentService {
   private readonly db: Knex;
