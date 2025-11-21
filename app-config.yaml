@@ -28,16 +28,20 @@ backend:
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
   database:
-    client: better-sqlite3
-    connection: ':memory:'
+    client: pg
+    connection:
+      host: ${POSTGRES_HOST:-localhost}
+      port: ${POSTGRES_PORT:-5432}
+      user: ${POSTGRES_USER:-postgres}
+      password: ${POSTGRES_PASSWORD:-postgres_password}
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
-integrations:
-  github:
-    - host: github.com
+# integrations:
+  # github:
+    # - host: github.com
       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
       # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
-      token: ${GITHUB_TOKEN}
+      # token: ${GITHUB_TOKEN}
     ### Example for how to add your GitHub Enterprise instance using the API:
     # - host: ghe.example.net
     #   apiBaseUrl: https://ghe.example.net/api/v3
@@ -66,7 +70,8 @@ auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers:
     # See https://backstage.io/docs/auth/guest/provider
-    guest: {}
+    guest:
+      dangerouslyAllowSignInWithoutUserInCatalog: true
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -111,3 +116,32 @@ kubernetes:
 permission:
   # setting this to `false` will disable permissions
   enabled: true
+
+multicloud:
+  schedule:
+    frequency: { minutes: 10 }
+    timeout: { minutes: 5 }
+  groupingKeys: ['env', 'app-id']
+  ownershipKeys: ['owner', 'team', 'contact']
+  observability:
+    grafanaMap:
+      'us-east-1': 'https://grafana-us-east.internal.corp'
+      'eu-': 'https://grafana-eu.internal.corp'
+      'default': 'https://grafana-global.internal.corp'
+    queryTemplate: '/d/node-exporter?var-instance=${instanceId}'
+  providers:
+    mock:
+      id: 'mock-1'
+      latency: 500
+    # aws:
+    #   accountId: '123456789012'
+    #   region: 'us-east-1'
+    # oci:
+    #   compartmentId: 'ocid1.compartment.oc1..example'
+    #   region: 'us-ashburn-1'
+    # baremetal:
+    #   name: 'local-rack'
+    #   instances:
+    #     - id: 'srv-1'
+    #       name: 'legacy-db'
+    #       tags: { env: 'prod', owner: 'dba' }
