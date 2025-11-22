@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist-types/plugins/multicloud-environments",
-    "rootDir": "src"
+    "rootDir": ".",
+    "declaration": true
   },
   "include": ["src"]
 }
