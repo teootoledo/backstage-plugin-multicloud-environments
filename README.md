@@ -1,10 +1,90 @@
-# [Backstage](https://backstage.io)
+# Backstage Multicloud Environments Plugin
 
-This is your newly scaffolded Backstage App, Good Luck!
+This plugin provides a unified view of your multicloud environments (AWS, OCI, On-Premise) within Backstage.
 
-To start the app, run:
+## Features
 
-```sh
-yarn install
-yarn start
+- **Unified Dashboard**: View all your environments in one place.
+- **Multicloud Support**: AWS, Oracle Cloud Infrastructure (OCI), and Bare Metal support.
+- **Resource Tracking**: Track EC2 instances, OCI instances, and physical servers.
+- **Ownership & Observability**: Link environments to owners and observability dashboards.
+
+## Installation
+
+### 1. Install the packages
+
+In your Backstage root directory:
+
+```bash
+# Install backend plugin
+yarn workspace backend add @teootoledo/backstage-plugin-multicloud-environments-backend
+
+# Install frontend plugin
+yarn workspace app add @teootoledo/backstage-plugin-multicloud-environments
 ```
+
+### 2. Configure the Backend
+
+In `packages/backend/src/index.ts`:
+
+```typescript
+import { createBackend } from '@backstage/backend-defaults';
+
+const backend = createBackend();
+
+// ... other plugins
+backend.add(import('@teootoledo/backstage-plugin-multicloud-environments-backend'));
+
+backend.start();
+```
+
+### 3. Configure the Frontend
+
+In `packages/app/src/App.tsx`:
+
+```typescript
+import { MulticloudEnvironmentsPage } from '@teootoledo/backstage-plugin-multicloud-environments';
+
+// ... inside your App routes
+<Route path="/multicloud-environments" element={<MulticloudEnvironmentsPage />} />
+```
+
+Add a link to your Sidebar in `packages/app/src/components/Root/Root.tsx`:
+
+```typescript
+import CloudIcon from '@material-ui/icons/Cloud';
+
+// ... inside Sidebar
+<SidebarItem icon={CloudIcon} to="multicloud-environments" text="Environments" />
+```
+
+## Configuration
+
+Add the following to your `app-config.yaml`:
+
+```yaml
+multicloudEnvironments:
+  providers:
+    aws:
+      region: us-east-1
+      # Ensure AWS credentials are available in the environment
+    oci:
+      configProfile: DEFAULT
+      # Ensure ~/.oci/config is set up
+    bareMetal:
+      # Configuration for bare metal provider
+```
+
+## Development & Mock Mode
+
+To use the Mock Provider for development or testing without real cloud credentials, configure it in your `app-config.yaml` (or `app-config.local.yaml`):
+
+```yaml
+multicloudEnvironments:
+  providers:
+    mock:
+      enabled: true
+      delay: 500 # Simulate network latency in ms
+```
+
+When `mock.enabled` is set to `true`, the backend will ignore other providers and serve static mock data.
