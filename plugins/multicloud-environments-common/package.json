@@ -10,8 +10,15 @@
     "types": "dist/index.d.ts"
   },
   "backstage": {
-    "role": "common-library"
+    "role": "common-library",
+    "pluginId": "multicloud-environments",
+    "pluginPackages": [
+      "@teootoledo/backstage-plugin-multicloud-environments",
+      "@teootoledo/backstage-plugin-multicloud-environments-backend",
+      "@teootoledo/backstage-plugin-multicloud-environments-common"
+    ]
   },
+  "sideEffects": false,
   "scripts": {
     "build": "backstage-cli package build",
     "lint": "backstage-cli package lint",
