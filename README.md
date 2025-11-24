@@ -1,5 +1,7 @@
 # Backstage Multicloud Environments Plugin
 
+[![Tests](https://github.com/teootoledo/backstage-plugin-multicloud-environments/actions/workflows/ci.yml/badge.svg)](https://github.com/teootoledo/backstage-plugin-multicloud-environments/actions/workflows/ci.yml)
+
 This plugin provides a unified view of your multicloud environments (AWS, OCI, On-Premise) within Backstage.
 
 ## Features

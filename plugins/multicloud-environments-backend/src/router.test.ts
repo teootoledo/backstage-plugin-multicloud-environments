@@ -13,11 +13,6 @@ describe('createRouter', () => {
   beforeAll(async () => {
     const knex = await databases.init('SQLITE_3');
 
-    // Run migrations
-    await knex.migrate.latest({
-      directory: path.resolve(__dirname, '../migrations'),
-    });
-
     const router = await createRouter({
       logger: mockServices.logger.mock(),
       config: mockServices.rootConfig({
@@ -34,6 +29,7 @@ describe('createRouter', () => {
       database: {
         getClient: async () => knex,
       } as any,
+      httpAuth: mockServices.httpAuth.mock(),
     });
     app = express().use(router);
 

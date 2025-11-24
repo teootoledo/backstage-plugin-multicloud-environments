@@ -1,4 +1,4 @@
-import { LoggerService, RootConfigService, DatabaseService } from '@backstage/backend-plugin-api';
+import { LoggerService, RootConfigService, DatabaseService, HttpAuthService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import Router from 'express-promise-router';
 import { EnvironmentService } from './service/EnvironmentService';
@@ -8,18 +8,26 @@ import { OwnershipProcessor } from './processors/OwnershipProcessor';
 import { ObservabilityProcessor } from './processors/ObservabilityProcessor';
 import { CloudProvider } from './providers/types';
 
+import path from 'path';
+
 export interface RouterOptions {
   logger: LoggerService;
   config: RootConfigService;
   database: DatabaseService;
+  httpAuth: HttpAuthService;
 }
 
 export async function createRouter(
   options: RouterOptions,
 ): Promise<express.Router> {
-  const { logger, config, database } = options;
+  const { logger, config, database, httpAuth } = options;
 
   const dbClient = await database.getClient();
+
+  const migrationsDir = path.resolve(__dirname, '../migrations');
+  await dbClient.migrate.latest({
+    directory: migrationsDir,
+  });
 
   const providers: CloudProvider[] = [];
 
@@ -52,7 +60,10 @@ export async function createRouter(
   const router = Router();
   router.use(express.json());
 
-  router.get('/environments', async (_, res) => {
+  router.get('/environments', async (req, res) => {
+    await httpAuth.credentials(req, {
+      allow: ['user', 'service'],
+    });
     const envs = await service.getEnvironments();
     res.json(envs);
   });
