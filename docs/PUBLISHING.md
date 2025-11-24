@@ -9,9 +9,15 @@ This project uses **Semantic Release** to automatically version and publish pack
     - `feat: ...` -> Minor release (0.1.0)
     - `feat!: ...` or `BREAKING CHANGE:` -> Major release (1.0.0)
 
-2.  **Push to Main**: When you push to the `main` branch, a GitHub Actions workflow (`release.yml`) is triggered.
+2.  **Push to Main**: Push your changes to the `main` branch. Note that this **will not** trigger a release automatically.
 
-3.  **Automated Release**:
+3.  **Trigger Release**:
+    - Go to the **Actions** tab in your GitHub repository.
+    - Select the **Release** workflow from the sidebar.
+    - Click **Run workflow**.
+    - Select the `main` branch and click **Run workflow**.
+
+4.  **Automated Release**:
     - The workflow runs tests and builds the project.
     - `multi-semantic-release` analyzes your commits.
     - It determines the next version number.
