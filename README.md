@@ -9,7 +9,14 @@ This plugin provides a unified view of your multicloud environments (AWS, OCI, O
 - **Resource Tracking**: Track EC2 instances, OCI instances, and physical servers.
 - **Ownership & Observability**: Link environments to owners and observability dashboards.
 
-## Installation
+## Documentation
+
+- [**Installation Guide**](./docs/INSTALLATION.md): How to install the plugin in your Backstage app.
+- [**Configuration Guide**](./docs/CONFIGURATION.md): How to configure providers (AWS, OCI, Mock).
+- [**Development Guide**](./docs/DEVELOPMENT.md): Architecture, local development, and testing.
+- [**Publishing Guide**](./docs/PUBLISHING.md): How to release new versions.
+
+## Quick Start
 
 ### 1. Install the packages
 
