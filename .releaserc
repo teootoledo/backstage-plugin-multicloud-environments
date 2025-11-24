@@ -3,7 +3,10 @@
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    "@semantic-release/npm",
+    ["@semantic-release/exec", {
+      "prepareCmd": "yarn version --new-version ${nextRelease.version} --no-git-tag-version",
+      "publishCmd": "npm publish"
+    }],
     "@semantic-release/github"
   ]
 }
