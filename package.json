@@ -1,5 +1,9 @@
 {
   "name": "backstage-plugin-multicloud-root",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teootoledo/backstage-plugin-multicloud-environments"
+  },
   "private": true,
   "workspaces": {
     "packages": [

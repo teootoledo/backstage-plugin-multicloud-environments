@@ -1,5 +1,10 @@
 {
   "name": "@teootoledo/backstage-plugin-multicloud-environments",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teootoledo/backstage-plugin-multicloud-environments",
+    "directory": "plugins/multicloud-environments"
+  },
   "version": "0.1.0",
   "license": "Apache-2.0",
   "main": "src/index.ts",
