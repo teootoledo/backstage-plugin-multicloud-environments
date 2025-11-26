@@ -35,9 +35,12 @@ export async function createRouter(
     const providersConfig = config.getConfig('multicloud.providers');
     for (const key of providersConfig.keys()) {
       const providerConfig = providersConfig.getConfig(key);
-      providers.push(createProvider(providerConfig));
+      const provider = createProvider(providerConfig);
+      providers.push(provider);
+      logger.info(`Loaded provider: ${provider.getProviderId()}`);
     }
   }
+  logger.info(`Multicloud Environments initialized with ${providers.length} providers.`);
 
   const processors = [
     new OwnershipProcessor(config),
@@ -66,6 +69,20 @@ export async function createRouter(
     });
     const envs = await service.getEnvironments();
     res.json(envs);
+  });
+
+  router.post('/sync', async (req, res) => {
+    await httpAuth.credentials(req, {
+      allow: ['user', 'service'],
+    });
+
+    try {
+      await collector.refresh();
+      res.status(200).json({ status: 'ok' });
+    } catch (error) {
+      logger.error('Failed to manual refresh environments', error);
+      res.status(500).json({ error: 'Failed to refresh environments' });
+    }
   });
 
   router.get('/health', (_, res) => {

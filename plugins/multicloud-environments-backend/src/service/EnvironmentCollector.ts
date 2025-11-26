@@ -61,13 +61,15 @@ export class EnvironmentCollector {
     // 4. PERSISTENCE
     await this.db.transaction(async tx => {
       await tx('multicloud_environments').delete();
-      await tx('multicloud_environments').insert(environments.map(env => ({
-        id: env.id,
-        name: env.name,
-        grouping_tag: env.groupingTag,
-        instances_json: JSON.stringify(env.instances),
-        last_updated: new Date(),
-      })));
+      if (environments.length > 0) {
+        await tx('multicloud_environments').insert(environments.map(env => ({
+          id: env.id,
+          name: env.name,
+          grouping_tag: env.groupingTag,
+          instances_json: JSON.stringify(env.instances),
+          last_updated: new Date(),
+        })));
+      }
     });
 
     this.logger.info(`Refresh complete. Stored ${environments.length} environments.`);

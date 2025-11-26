@@ -7,6 +7,7 @@ export const multicloudEnvironmentsApiRef = createApiRef<MulticloudEnvironmentsA
 
 export interface MulticloudEnvironmentsApi {
   getEnvironments(): Promise<LogicalEnvironment[]>;
+  refreshEnvironments(): Promise<void>;
 }
 
 export class MulticloudEnvironmentsApiClient implements MulticloudEnvironmentsApi {
@@ -27,5 +28,16 @@ export class MulticloudEnvironmentsApiClient implements MulticloudEnvironmentsAp
     }
 
     return await response.json();
+  }
+
+  async refreshEnvironments(): Promise<void> {
+    const url = await this.discoveryApi.getBaseUrl('multicloud-environments');
+    const response = await this.fetchApi.fetch(`${url}/sync`, {
+      method: 'POST',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error refreshing environments: ${response.statusText}`);
+    }
   }
 }
