@@ -10,8 +10,8 @@ export class OciProvider implements CloudProvider {
   private readonly region: string;
 
   constructor (config: Config) {
-    this.compartmentId = config.getString('multicloud.providers.oci.compartmentId');
-    this.region = config.getString('multicloud.providers.oci.region');
+    this.compartmentId = config.getString('compartmentId');
+    this.region = config.getString('region');
 
     // Assuming default config file location or environment variables
     const provider = new common.ConfigFileAuthenticationDetailsProvider();

@@ -9,8 +9,8 @@ export class AwsProvider implements CloudProvider {
   private readonly region: string;
 
   constructor (config: Config) {
-    this.accountId = config.getString('multicloud.providers.aws.accountId');
-    this.region = config.getString('multicloud.providers.aws.region');
+    this.accountId = config.getString('accountId');
+    this.region = config.getString('region');
     this.client = new EC2Client({ region: this.region });
   }
 

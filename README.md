@@ -72,27 +72,34 @@ import CloudIcon from '@material-ui/icons/Cloud';
 Add the following to your `app-config.yaml`:
 
 ```yaml
-multicloudEnvironments:
+multicloud:
   providers:
-    aws:
+    aws-provider:
+      type: aws
+      accountId: '123456789012'
       region: us-east-1
-      # Ensure AWS credentials are available in the environment
-    oci:
-      configProfile: DEFAULT
-      # Ensure ~/.oci/config is set up
-    bareMetal:
-      # Configuration for bare metal provider
-```
+    oci-provider:
+      type: oci
+      compartmentId: 'ocid1.compartment.oc1..example'
+      region: us-ashburn-1
+    on-premise:
+      type: baremetal
+      name: 'DataCenter-1'
+      instances:
+        - id: 'server-1'
+          name: 'db-server'
+          tags:
+            role: 'database'
 
 ## Development & Mock Mode
 
 To use the Mock Provider for development or testing without real cloud credentials, configure it in your `app-config.yaml` (or `app-config.local.yaml`):
 
 ```yaml
-multicloudEnvironments:
+multicloud:
   providers:
-    mock:
-      enabled: true
+    mock-provider:
+      type: mock
       delay: 500 # Simulate network latency in ms
 ```
 
