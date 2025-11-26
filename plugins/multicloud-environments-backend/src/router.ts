@@ -35,7 +35,7 @@ export async function createRouter(
     const providersConfig = config.getConfig('multicloud.providers');
     for (const key of providersConfig.keys()) {
       const providerConfig = providersConfig.getConfig(key);
-      const provider = createProvider(providerConfig);
+      const provider = createProvider(providerConfig, key);
       providers.push(provider);
       logger.info(`Loaded provider: ${provider.getProviderId()}`);
     }
